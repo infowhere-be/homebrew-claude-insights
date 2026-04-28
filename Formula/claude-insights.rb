@@ -1,33 +1,24 @@
 # Homebrew formula template for claude-insights.
-# This file is auto-updated by the release workflow via update-homebrew-formula.sh.
+# Auto-updated by the release workflow via update-homebrew-formula.sh.
 # Do not edit manually — changes will be overwritten on next release.
 #
-# Live formula lives in: https://github.com/infowhere-be/homebrew-claude-insights
+# Live formula: https://github.com/infowhere-be/homebrew-claude-insights
 
 class ClaudeInsights < Formula
   desc "Real-time dashboard for Claude Code sessions"
   homepage "https://github.com/infowhere-be/claude-monitor"
-  version "FORMULA_VERSION"
+  version "1.0.0b1"
   license "MIT"
 
   on_macos do
     on_arm do
-      url "https://github.com/infowhere-be/claude-monitor/releases/download/vFORMULA_VERSION/claude-insights-macos-arm64"
-      sha256 "FORMULA_SHA256_ARM64"
-    end
-
-    on_intel do
-      url "https://github.com/infowhere-be/claude-monitor/releases/download/vFORMULA_VERSION/claude-insights-macos-x86_64"
-      sha256 "FORMULA_SHA256_X86_64"
+      url "https://github.com/infowhere-be/claude-monitor/releases/download/v1.0.0b1/claude-insights-macos-arm64"
+      sha256 "5f8b366f9bcd79b972478da74b499fb9e541fa9f519c3d768dad01c7eb2d1c88"
     end
   end
 
   def install
-    if Hardware::CPU.arm?
-      bin.install "claude-insights-macos-arm64" => "claude-insights"
-    else
-      bin.install "claude-insights-macos-x86_64" => "claude-insights"
-    end
+    bin.install "claude-insights-macos-arm64" => "claude-insights"
   end
 
   def caveats
