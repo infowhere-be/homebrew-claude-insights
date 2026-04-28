@@ -13,7 +13,7 @@ class ClaudeInsights < Formula
   on_macos do
     on_arm do
       url "https://github.com/infowhere-be/claude-monitor/releases/download/v1.0.0b1/claude-insights-macos-arm64"
-      sha256 "5f8b366f9bcd79b972478da74b499fb9e541fa9f519c3d768dad01c7eb2d1c88"
+      sha256 "73c79a07680443641b385faa329b437090f2f2556b2ae90f2e17d14996aca66f"
     end
   end
 
