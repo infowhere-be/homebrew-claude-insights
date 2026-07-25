@@ -113,6 +113,16 @@ promocao (/colocar-em-producao)
    `git merge` local. O `git merge` esta em deny global — e bem: a promocao nao deve depender
    do estado da maquina de quem promove.
 
+**Armadilhas do workflow_dispatch** (custaram 2 runs falhados no piloto, 2026-07-25):
+- O `deploy.yml` tem de existir no **branch default**, senao `gh workflow run` da HTTP 404. A
+  primeira promocao exige um merge de bootstrap — a unica vez em que o merge vem antes do deploy.
+- O dispatch corre a **definicao do workflow que esta no ref**, nao a do teu branch. Passar
+  sempre `--ref develop`, senao um fix que so esteja no develop nao tem efeito e parece que nao
+  funcionou.
+- `docker manifest inspect` precisa de `--insecure` contra um Nexus em HTTP: e comando de cliente
+  e nao le a config `insecure-registries` do daemon. Sintoma: falha em ~10ms para imagens que
+  existem.
+
 **Ganhos**: promocao de ~10 min para ~1-2 min; a imagem em producao e o binario testado;
 rollback = re-deploy de um SHA anterior que ja esta no Nexus; o `main` deixa de poder mentir.
 
