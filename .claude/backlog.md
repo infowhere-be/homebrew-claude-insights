@@ -101,8 +101,14 @@ promocao (/colocar-em-producao)
    reparar em silencio.
 7. **Deploy primeiro, merge depois**: o `main` so avanca se a versao entrou mesmo. Assim o
    `main` e sempre o que esta vivo, e nunca uma promessa por cumprir.
-8. O push para `main` deixa de disparar testes e build — os obrigatorios correm no PR, que e
-   onde a branch protection os exige.
+8. O push para `main` deixa de disparar testes e build. O gatilho `pull_request` tambem sai:
+   o commit no topo do PR e o mesmo que ja passou no push do develop, e o GitHub agarra os
+   check-runs ao SHA — a branch protection encontra-os la sem os repetir. Confirmar com
+   `gh api repos/OWNER/REPO/commits/<sha>/check-runs` antes de remover.
+   **So e seguro com `strict: true` na branch protection**: sem gatilho `pull_request`, o
+   GitHub deixa de testar o resultado do merge, e so o `strict` garante que o develop ja
+   contem o main — logo que o commit testado E o resultado. Repos com contribuidores
+   externos mantem o `pull_request` (push nao dispara em forks).
 9. O `/colocar-em-producao` chama o `gh` (`gh workflow run`, `gh pr merge`) em vez de fazer
    `git merge` local. O `git merge` esta em deny global — e bem: a promocao nao deve depender
    do estado da maquina de quem promove.
